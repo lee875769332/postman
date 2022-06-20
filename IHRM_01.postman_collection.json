@@ -1,0 +1,1040 @@
+{
+	"info": {
+		"_postman_id": "57e3206f-58dd-4973-b04e-ed06f44135ec",
+		"name": "IHRM_01",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"item": [
+				{
+					"name": "ihrm-login-API001登录成功",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=true\r",
+									"pm.test(\"success是true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"//断言响应消息code = 10000\r",
+									"pm.test(\"code 是 10000\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(10000);\r",
+									"});\r",
+									"//断言响应消息message =\"操作成功\"\r",
+									"pm.test(\"message是 操作成功\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+									"});\r",
+									"\r",
+									"//保存token字符串\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"e_token\", \"Bearer \"+jsonData.data);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"mobile\":\"13800000002\",\"password\":\"123456\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API002不输入手机号",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"\",\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API003不输入密码",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"13800000002\",\r\n\"password\":\"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API004手机号长度小于11位",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"1380000000\",\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API005手机号长度大于11位",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"138000000023\",\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API006手机号输入非数字",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"error\",\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API007输入未注册的手机号",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"13800000112\",\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API008多参",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=true\r",
+									"pm.test(\"success是true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"//断言响应消息code = 10000\r",
+									"pm.test(\"code 是 10000\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(10000);\r",
+									"});\r",
+									"//断言响应消息message =\"操作成功\"\r",
+									"pm.test(\"message是 操作成功\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"13800000002\",\r\n\"password\":\"123456\",\r\n\"parameter\":\"hahaha\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API009少参-缺少手机号",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API010少参-密码",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"13800000002\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API011无参",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 99999\r",
+									"pm.test(\"code 是  99999\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(99999);\r",
+									"});\r",
+									"//断言响应消息message =\"抱歉，系统繁忙，请稍后重试！\"\r",
+									"pm.test(\"message是 抱歉，系统繁忙，请稍后重试！\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"抱歉，系统繁忙，请稍后重试！\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API012错误参数-手机号参数拼写错误",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobiel\":\"13800000002\",\r\n\"password\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-login-API013错误参数-密码参数拼写错误",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=false\r",
+									"pm.test(\"success是false\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(false);\r",
+									"});\r",
+									"//断言响应消息code = 20001\r",
+									"pm.test(\"code 是  20001\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(20001);\r",
+									"});\r",
+									"//断言响应消息message =\"用户名或密码错误\"\r",
+									"pm.test(\"message是 用户名或密码错误\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"用户名或密码错误\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"mobile\":\"13800000002\",\r\n\"passwd\":\"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "员工管理",
+			"item": [
+				{
+					"name": "ihrm-emp-01添加员工",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=true\r",
+									"pm.test(\"success是true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"//断言响应消息code = 10000\r",
+									"pm.test(\"code 是 10000\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(10000);\r",
+									"});\r",
+									"//断言响应消息message =\"操作成功\"\r",
+									"pm.test(\"message是 操作成功\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+									"});\r",
+									"\r",
+									"//保留员工ID.解决后续依赖性问题\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.environment.set(\"emplo_id\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{e_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"username\":\"jac02\",\r\n\"mobile\":\"13211892521\",\r\n\"timeOfEntry\":\"2020-07-09\",\r\n\"formOfEmployment\":1,\r\n\"workNumber\":\"10086\",\r\n\"departmentName\":\"销售\",\r\n\"departmentId\":\"1266699057968001024\",\r\n\"correctionTime\":\"2020-07-30T16:00:00.000Z\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-emp-01查询员工",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=true\r",
+									"pm.test(\"success是true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"//断言响应消息code = 10000\r",
+									"pm.test(\"code 是 10000\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(10000);\r",
+									"});\r",
+									"//断言响应消息message =\"操作成功\"\r",
+									"pm.test(\"message是 操作成功\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{e_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/sys/user/{{emplo_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{emplo_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-emp-01修改员工",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=true\r",
+									"pm.test(\"success是true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"//断言响应消息code = 10000\r",
+									"pm.test(\"code 是 10000\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(10000);\r",
+									"});\r",
+									"//断言响应消息message =\"操作成功\"\r",
+									"pm.test(\"message是 操作成功\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{e_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"rose09t2\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sys/user/{{emplo_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{emplo_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ihrm-emp-01删除员工",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//断言相应状态码为200\r",
+									"pm.test(\"响应码为200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//断言响应消息success=true\r",
+									"pm.test(\"success是true\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.success).to.eql(true);\r",
+									"});\r",
+									"//断言响应消息code = 10000\r",
+									"pm.test(\"code 是 10000\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(10000);\r",
+									"});\r",
+									"//断言响应消息message =\"操作成功\"\r",
+									"pm.test(\"message是 操作成功\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"操作成功！\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{e_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/sys/user/{{emplo_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"sys",
+								"user",
+								"{{emplo_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "部门管理",
+			"item": []
+		}
+	]
+}
